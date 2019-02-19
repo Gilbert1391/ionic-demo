@@ -1,5 +1,5 @@
-import { AuthenticationService } from "../../services/authentication.service";
 import { Component, OnInit } from "@angular/core";
+import { AuthenticationService } from "../../services/authentication.service";
 
 @Component({
   selector: "app-login",
@@ -8,18 +8,14 @@ import { Component, OnInit } from "@angular/core";
 })
 export class LoginPage implements OnInit {
   constructor(private service: AuthenticationService) {}
-  username: string;
-  password: string;
 
-  login() {
-    this.service.login();
+  onSubmit(form) {
+    console.log(form);
+    console.log(form.value);
+
+    //if (!user.hasOwnProperty("username")) alert("Username is required.");
+    //this.service.login(cookie);
   }
 
-  logout() {
-    this.service.logout();
-  }
-
-  ngOnInit() {
-    //console.log("Checking");
-  }
+  ngOnInit() {}
 }

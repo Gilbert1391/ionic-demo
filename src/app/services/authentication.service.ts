@@ -26,9 +26,9 @@ export class AuthenticationService {
     });
   }
 
-  login() {
+  login(cookie) {
     console.log("Login");
-    return this.storage.set(TOKEN_KEY, "123456").then(() => {
+    return this.storage.set(TOKEN_KEY, cookie).then(() => {
       this.authenticationState.next(true);
     });
   }
