@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { NavController } from "@ionic/angular";
+import { UsersService } from "../../services/users.service";
 
 @Component({
   selector: "app-register",
@@ -7,10 +8,14 @@ import { NavController } from "@ionic/angular";
   styleUrls: ["./register.page.scss"]
 })
 export class RegisterPage implements OnInit {
-  constructor(private navCtrl: NavController) {}
+  constructor(private navCtrl: NavController, private service: UsersService) {}
 
   goBack() {
     this.navCtrl.pop();
+  }
+
+  onSubmit(form) {
+    this.service.register(form.value);
   }
 
   ngOnInit() {}

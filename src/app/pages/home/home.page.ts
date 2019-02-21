@@ -1,7 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
-
-const api = "https://jsonplaceholder.typicode.com/users";
+import { AuthenticationService } from "../../services/authentication.service";
 
 @Component({
   selector: "app-home",
@@ -9,13 +7,12 @@ const api = "https://jsonplaceholder.typicode.com/users";
   styleUrls: ["./home.page.scss"]
 })
 export class HomePage implements OnInit {
-  constructor(private http: HttpClient) {
-    this.http
-      .get("https://jsonplaceholder.typicode.com/posts")
-      .subscribe(res => {
-        console.log(res);
-      });
-  }
+  constructor(private service: AuthenticationService) {}
 
   ngOnInit() {}
+
+  logout() {
+    console.log("Logging out user");
+    this.service.logout();
+  }
 }

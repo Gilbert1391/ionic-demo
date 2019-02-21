@@ -5,7 +5,70 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-list>
+  <form #form="ngForm" (ngSubmit)="onSubmit(form)">
+    <ion-item>
+      <ion-label position="floating">Username</ion-label>
+      <ion-input
+        class="form-control"
+        type="text"
+        name="username"
+        #username="ngModel"
+        ngModel
+        required
+        minlength="5"
+        maxlength="50"
+      ></ion-input>
+    </ion-item>
+    <div *ngIf="username.touched && !username.valid">
+      <div *ngIf="username.errors.required">Username is required</div>
+      <div *ngIf="username.errors.minlength">
+        Username should be minimum
+        {{ username.errors.minlength.requiredLength }} characters
+      </div>
+    </div>
+    <ion-item>
+      <ion-label position="floating">Password</ion-label>
+      <ion-input
+        class="form-control"
+        type="text"
+        name="password"
+        #password="ngModel"
+        ngModel
+        required
+        minlength="5"
+        maxlength="50"
+      ></ion-input>
+    </ion-item>
+    <div *ngIf="password.touched && !password.valid">
+      <div *ngIf="password.errors.required">password is required</div>
+      <div *ngIf="password.errors.minlength">
+        password should be minimum
+        {{ password.errors.minlength.requiredLength }} characters
+      </div>
+    </div>
+    <ion-item>
+      <ion-label position="floating">Name</ion-label>
+      <ion-input
+        class="form-control"
+        type="text"
+        name="name"
+        #name="ngModel"
+        ngModel
+        required
+        maxlength="50"
+      ></ion-input>
+    </ion-item>
+    <div *ngIf="name.touched && !name.valid">
+      Name is required
+    </div>
+    <ion-button type="submit" expand="block" [disabled]="!form.valid"
+      >Register</ion-button
+    >
+    <ion-button expand="block" color="primary" (click)="goBack()"
+      >Go back</ion-button
+    >
+  </form>
+  <!-- <ion-list>
     <ion-item>
       <ion-label position="floating">Username</ion-label>
       <ion-input placeholder="Username"></ion-input>
@@ -15,11 +78,8 @@
       <ion-input placeholder="Password"></ion-input>
     </ion-item>
   </ion-list>
-  <!-- <ion-button expand="block" color="primary" [routerLink]="['/home']"
-    >Register</ion-button
-  > -->
   <ion-button expand="block" color="primary">Register</ion-button>
   <ion-button expand="block" color="primary" (click)="goBack()"
     >Go back</ion-button
-  >
+  > -->
 </ion-content>

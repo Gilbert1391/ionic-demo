@@ -11,10 +11,8 @@ export class LoginPage implements OnInit {
 
   onSubmit(form) {
     console.log(form);
-    console.log(form.value);
-
-    //if (!user.hasOwnProperty("username")) alert("Username is required.");
-    //this.service.login(cookie);
+    this.service.login(form.value.username, form.value.password);
+    // this.service.login();
   }
 
   ngOnInit() {}

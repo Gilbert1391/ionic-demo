@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 
 import { Platform } from "@ionic/angular";
 import { SplashScreen } from "@ionic-native/splash-screen/ngx";
@@ -10,7 +10,7 @@ import { Router } from "@angular/router";
   selector: "app-root",
   templateUrl: "app.component.html"
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
@@ -25,15 +25,17 @@ export class AppComponent {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+    });
+  }
 
-      this.authService.authenticationState.subscribe(state => {
-        console.log("Auth state: " + state);
-        if (state) {
-          this.router.navigate(["home"]);
-        } else {
-          this.router.navigate(["login"]);
-        }
-      });
+  ngOnInit() {
+    this.authService.authenticationState.subscribe(state => {
+      console.log("Auth state: " + state);
+      if (state) {
+        this.router.navigate(["home"]);
+      } else {
+        this.router.navigate(["login"]);
+      }
     });
   }
 }
