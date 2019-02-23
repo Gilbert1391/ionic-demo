@@ -5,7 +5,7 @@
 </ion-header>
 
 <ion-content padding>
-  <form #form="ngForm" (ngSubmit)="onSubmit(form)">
+  <!-- <form #form="ngForm" (ngSubmit)="onSubmit(form)">
     <ion-item>
       <ion-label position="floating">Username</ion-label>
       <ion-input
@@ -47,7 +47,37 @@
       </div>
     </div>
     <ion-button type="submit" expand="block" [disabled]="!form.valid"
-      >Sign up</ion-button
+      >Sign in</ion-button
+    >
+    <ion-button expand="block" color="primary" [routerLink]="['/register']"
+      >Register</ion-button
+    >
+  </form> -->
+  <form #form="ngForm" (ngSubmit)="onSubmit(form)">
+    <ion-item>
+      <ion-label position="floating">Username</ion-label>
+      <ion-input
+        class="form-control"
+        type="text"
+        name="username"
+        #username="ngModel"
+        ngModel
+        
+      ></ion-input>
+    </ion-item>
+    
+    <ion-item>
+      <ion-label position="floating">Password</ion-label>
+      <ion-input
+        class="form-control"
+        type="text"
+        name="password"
+        #password="ngModel"
+        ngModel
+      ></ion-input>
+    </ion-item>
+    <ion-button type="submit" expand="block" 
+      >Sign in</ion-button
     >
     <ion-button expand="block" color="primary" [routerLink]="['/register']"
       >Register</ion-button

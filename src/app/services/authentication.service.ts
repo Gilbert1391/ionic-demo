@@ -32,24 +32,44 @@ export class AuthenticationService {
     });
   }
 
-  login(email, password) {
-    console.log("Authenticating...");
+  // login(email, password) {
+  //   console.log("Authenticating...");
+  //   this.http
+  //     .post(
+  //       apiEndPoint + "/auth",
+  //       { email, password },
+  //       { responseType: "text" }
+  //     )
+  //     .subscribe(
+  //       res => {
+  //         this.storage.set(TOKEN_KEY, res).then(() => {
+  //           this.authenticationState.next(true);
+  //         });
+  //       },
+  //       ex => {
+  //         alert(ex.error);
+  //       }
+  //     );
+  // }
+
+  getUser() {
     this.http
-      .post(
-        apiEndPoint + "/auth",
-        { email, password },
-        { responseType: "text" }
-      )
-      .subscribe(
-        res => {
-          this.storage.set(TOKEN_KEY, res).then(() => {
-            this.authenticationState.next(true);
-          });
-        },
-        ex => {
-          alert(ex.error);
-        }
-      );
+      .get("https://monkey.com.do/api/user/get_userinfo/?user_id=1")
+      .subscribe(res => {
+        console.log(res);
+      });
+  }
+
+  login(email, password) {
+    this.http
+      .post("https://monkey.com.do/api/user/generate_auth_cookie", {
+        email,
+        password
+      })
+      .subscribe(res => console.log(res));
+    // return this.storage.set(TOKEN_KEY, "Bearer 1234567").then(() => {
+    //   this.authenticationState.next(true);
+    // });
   }
 
   logout() {

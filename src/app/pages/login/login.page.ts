@@ -7,12 +7,12 @@ import { AuthenticationService } from "../../services/authentication.service";
   styleUrls: ["./login.page.scss"]
 })
 export class LoginPage implements OnInit {
-  constructor(private service: AuthenticationService) {}
+  constructor(private authService: AuthenticationService) {}
 
   onSubmit(form) {
-    console.log(form);
-    this.service.login(form.value.username, form.value.password);
-    // this.service.login();
+    this.authService.getUser();
+    // this.authService.login(form.value.username, form.value.password);
+    // console.log(this.authService.isAuthenticated());
   }
 
   ngOnInit() {}

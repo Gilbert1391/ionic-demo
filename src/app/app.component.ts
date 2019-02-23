@@ -33,8 +33,6 @@ export class AppComponent implements OnInit {
       console.log("Auth state: " + state);
       if (state) {
         this.router.navigate(["home"]);
-      } else {
-        this.router.navigate(["login"]);
       }
     });
   }
