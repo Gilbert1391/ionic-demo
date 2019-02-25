@@ -1,11 +1,11 @@
 import { Injectable } from "@angular/core";
 import { Storage } from "@ionic/storage";
-import { Platform } from "@ionic/angular";
+import { Platform, LoadingController } from "@ionic/angular";
 import { HttpClient } from "@angular/common/http";
 import { BehaviorSubject } from "rxjs";
 
 const TOKEN_KEY = "auth-token";
-const apiEndPoint = "http://localhost:3000/api";
+const apiEndPoint = "https://monkey.com.do/wpapi/wp-json/jwt-auth/v1/token";
 
 @Injectable({
   providedIn: "root"
@@ -16,7 +16,8 @@ export class AuthenticationService {
   constructor(
     private storage: Storage,
     private plt: Platform,
-    private http: HttpClient
+    private http: HttpClient,
+    private loadingController: LoadingController
   ) {
     // Check if token is stored when the device is ready
     this.plt.ready().then(readySource => {
@@ -32,44 +33,32 @@ export class AuthenticationService {
     });
   }
 
-  // login(email, password) {
-  //   console.log("Authenticating...");
-  //   this.http
-  //     .post(
-  //       apiEndPoint + "/auth",
-  //       { email, password },
-  //       { responseType: "text" }
-  //     )
-  //     .subscribe(
-  //       res => {
-  //         this.storage.set(TOKEN_KEY, res).then(() => {
-  //           this.authenticationState.next(true);
-  //         });
-  //       },
-  //       ex => {
-  //         alert(ex.error);
-  //       }
-  //     );
-  // }
+  async login(username, password) {
+    const loading = await this.loadingController.create({
+      duration: 2000,
+      message: "Please wait..."
+    });
 
-  getUser() {
-    this.http
-      .get("https://monkey.com.do/api/user/get_userinfo/?user_id=1")
-      .subscribe(res => {
-        console.log(res);
-      });
-  }
+    loading.present();
 
-  login(email, password) {
     this.http
-      .post("https://monkey.com.do/api/user/generate_auth_cookie", {
-        email,
+      .post(apiEndPoint, {
+        username,
         password
       })
-      .subscribe(res => console.log(res));
-    // return this.storage.set(TOKEN_KEY, "Bearer 1234567").then(() => {
-    //   this.authenticationState.next(true);
-    // });
+      .subscribe(
+        res => {
+          console.log(res["token"]);
+          loading.dismiss();
+          this.storage
+            .set(TOKEN_KEY, res["token"])
+            .then(() => this.authenticationState.next(true));
+        },
+        ex => {
+          loading.dismiss();
+          console.log(ex);
+        }
+      );
   }
 
   logout() {

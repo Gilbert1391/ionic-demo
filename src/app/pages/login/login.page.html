@@ -5,7 +5,7 @@
 </ion-header>
 
 <ion-content padding>
-  <!-- <form #form="ngForm" (ngSubmit)="onSubmit(form)">
+  <form #form="ngForm" (ngSubmit)="onSubmit(form)">
     <ion-item>
       <ion-label position="floating">Username</ion-label>
       <ion-input
@@ -16,7 +16,7 @@
         ngModel
         required
         minlength="5"
-        maxlength="50"
+        maxlength="20"
       ></ion-input>
     </ion-item>
     <div *ngIf="username.touched && !username.valid">
@@ -35,8 +35,8 @@
         #password="ngModel"
         ngModel
         required
-        minlength="5"
-        maxlength="50"
+        minlength="6"
+        maxlength="20"
       ></ion-input>
     </ion-item>
     <div *ngIf="password.touched && !password.valid">
@@ -52,8 +52,8 @@
     <ion-button expand="block" color="primary" [routerLink]="['/register']"
       >Register</ion-button
     >
-  </form> -->
-  <form #form="ngForm" (ngSubmit)="onSubmit(form)">
+  </form>
+  <!-- <form #form="ngForm" (ngSubmit)="onSubmit(form)">
     <ion-item>
       <ion-label position="floating">Username</ion-label>
       <ion-input
@@ -82,5 +82,5 @@
     <ion-button expand="block" color="primary" [routerLink]="['/register']"
       >Register</ion-button
     >
-  </form>
+  </form> -->
 </ion-content>

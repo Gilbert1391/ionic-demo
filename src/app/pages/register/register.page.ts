@@ -15,6 +15,7 @@ export class RegisterPage implements OnInit {
   }
 
   onSubmit(form) {
+    console.log(form.value);
     this.service.register(form.value);
   }
 

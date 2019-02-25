@@ -10,9 +10,8 @@ export class LoginPage implements OnInit {
   constructor(private authService: AuthenticationService) {}
 
   onSubmit(form) {
-    this.authService.getUser();
-    // this.authService.login(form.value.username, form.value.password);
-    // console.log(this.authService.isAuthenticated());
+    console.log(form.value);
+    this.authService.login(form.value.username, form.value.password);
   }
 
   ngOnInit() {}
