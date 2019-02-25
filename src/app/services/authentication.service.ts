@@ -26,43 +26,50 @@ export class AuthenticationService {
   }
 
   checkToken() {
-    this.storage.get(TOKEN_KEY).then(res => {
+    return this.storage.get(TOKEN_KEY).then(res => {
       if (res) {
         this.authenticationState.next(true);
       }
     });
   }
 
-  async login(username, password) {
-    const loading = await this.loadingController.create({
-      duration: 2000,
-      message: "Please wait..."
-    });
+  // async login(username, password) {
+  //   const loading = await this.loadingController.create({
+  //     duration: 2000,
+  //     message: "Please wait..."
+  //   });
 
-    loading.present();
+  //   loading.present();
 
-    this.http
-      .post(apiEndPoint, {
-        username,
-        password
-      })
-      .subscribe(
-        res => {
-          console.log(res["token"]);
-          loading.dismiss();
-          this.storage
-            .set(TOKEN_KEY, res["token"])
-            .then(() => this.authenticationState.next(true));
-        },
-        ex => {
-          loading.dismiss();
-          console.log(ex);
-        }
-      );
+  //   this.http
+  //     .post(apiEndPoint, {
+  //       username,
+  //       password
+  //     })
+  //     .subscribe(
+  //       res => {
+  //         console.log(res);
+  //         loading.dismiss();
+  //         this.storage
+  //           .set(TOKEN_KEY, res["token"])
+  //           .then(() => this.authenticationState.next(true));
+  //       },
+  //       ex => {
+  //         loading.dismiss();
+  //         console.log(ex);
+  //         // this.errorMessage = ex.error.message;
+  //       }
+  //     );
+  // }
+
+  login(jwt) {
+    return this.storage
+      .set(TOKEN_KEY, jwt)
+      .then(() => this.authenticationState.next(true));
   }
 
   logout() {
-    this.storage.remove(TOKEN_KEY).then(() => {
+    return this.storage.remove(TOKEN_KEY).then(() => {
       this.authenticationState.next(false);
     });
   }

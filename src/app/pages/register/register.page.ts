@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { NavController } from "@ionic/angular";
+import { NavController, LoadingController } from "@ionic/angular";
 import { UsersService } from "../../services/users.service";
 
 @Component({
@@ -8,7 +8,11 @@ import { UsersService } from "../../services/users.service";
   styleUrls: ["./register.page.scss"]
 })
 export class RegisterPage implements OnInit {
-  constructor(private navCtrl: NavController, private service: UsersService) {}
+  constructor(
+    private navCtrl: NavController,
+    private service: UsersService,
+    private loadingController: LoadingController
+  ) {}
 
   goBack() {
     this.navCtrl.pop();
