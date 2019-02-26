@@ -1,9 +1,6 @@
 import { Component, OnInit } from "@angular/core";
-import { NavController, LoadingController } from "@ionic/angular";
-import { HttpClient } from "@angular/common/http";
+import { NavController } from "@ionic/angular";
 import { AuthenticationService } from "../../services/authentication.service";
-
-const apiEndPoint = "https://monkey.com.do/wpapi/wp-json/jwt-auth/v1/token";
 
 @Component({
   selector: "app-login",
@@ -11,41 +8,15 @@ const apiEndPoint = "https://monkey.com.do/wpapi/wp-json/jwt-auth/v1/token";
   styleUrls: ["./login.page.scss"]
 })
 export class LoginPage implements OnInit {
-  errorMessage: string;
-
   constructor(
     private authService: AuthenticationService,
-    private http: HttpClient,
-    private navCtrl: NavController,
-    private loadingController: LoadingController
+    private navCtrl: NavController
   ) {}
 
-  async onSubmit(form) {
-    const loading = await this.loadingController.create({
-      duration: 2000,
-      message: "Please wait..."
-    });
+  errorMessage = this.authService.errorMessage;
 
-    loading.present();
-
-    this.http
-      .post(apiEndPoint, {
-        username: form.value.username,
-        password: form.value.password
-      })
-      .subscribe(
-        res => {
-          console.log(res);
-          loading.dismiss();
-          this.authService.login(res["token"]);
-        },
-        ex => {
-          loading.dismiss();
-          console.log(ex);
-          this.errorMessage = ex.error.message;
-          console.log(this.errorMessage);
-        }
-      );
+  onSubmit(form) {
+    this.authService.login(form.value.username, form.value.password);
   }
 
   goBack() {

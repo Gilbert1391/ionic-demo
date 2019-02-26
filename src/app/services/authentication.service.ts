@@ -5,13 +5,14 @@ import { HttpClient } from "@angular/common/http";
 import { BehaviorSubject } from "rxjs";
 
 const TOKEN_KEY = "auth-token";
-const apiEndPoint = "https://monkey.com.do/wpapi/wp-json/jwt-auth/v1/token";
+const apiEndPoint = "https://monkey.com.do/wpapi/wp-json";
 
 @Injectable({
   providedIn: "root"
 })
 export class AuthenticationService {
   authenticationState = new BehaviorSubject(false);
+  errorMessage = new BehaviorSubject("");
 
   constructor(
     private storage: Storage,
@@ -33,39 +34,33 @@ export class AuthenticationService {
     });
   }
 
-  // async login(username, password) {
-  //   const loading = await this.loadingController.create({
-  //     duration: 2000,
-  //     message: "Please wait..."
-  //   });
+  async login(username, password) {
+    const loading = await this.loadingController.create({
+      duration: 5000,
+      message: "Please wait..."
+    });
 
-  //   loading.present();
+    loading.present();
 
-  //   this.http
-  //     .post(apiEndPoint, {
-  //       username,
-  //       password
-  //     })
-  //     .subscribe(
-  //       res => {
-  //         console.log(res);
-  //         loading.dismiss();
-  //         this.storage
-  //           .set(TOKEN_KEY, res["token"])
-  //           .then(() => this.authenticationState.next(true));
-  //       },
-  //       ex => {
-  //         loading.dismiss();
-  //         console.log(ex);
-  //         // this.errorMessage = ex.error.message;
-  //       }
-  //     );
-  // }
-
-  login(jwt) {
-    return this.storage
-      .set(TOKEN_KEY, jwt)
-      .then(() => this.authenticationState.next(true));
+    return this.http
+      .post(apiEndPoint + "/jwt-auth/v1/token", {
+        username,
+        password
+      })
+      .subscribe(
+        res => {
+          console.log(res);
+          loading.dismiss();
+          this.storage
+            .set(TOKEN_KEY, res["token"])
+            .then(() => this.authenticationState.next(true));
+        },
+        ex => {
+          loading.dismiss();
+          console.log(ex);
+          this.errorMessage.next("Invalid username or password.");
+        }
+      );
   }
 
   logout() {

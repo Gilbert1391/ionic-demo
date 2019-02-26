@@ -6,7 +6,7 @@
 
 <ion-content padding>
   <div *ngIf="errorMessage">
-    {{ errorMessage }}
+    {{ errorMessage.value }}
   </div>
   <form #form="ngForm" (ngSubmit)="onSubmit(form)">
     <ion-item>

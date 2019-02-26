@@ -5,25 +5,26 @@
 </ion-header>
 
 <ion-content padding>
-  <form #form="ngForm" (ngSubmit)="onSubmit(form)">
+  <form [formGroup]="form" (ngSubmit)="onSubmit(form)">
     <ion-item>
       <ion-label position="floating">Username</ion-label>
       <ion-input
         class="form-control"
         type="text"
-        name="username"
-        #username="ngModel"
-        ngModel
-        required
-        minlength="5"
-        maxlength="20"
+        formControlName="username"
       ></ion-input>
     </ion-item>
-    <div *ngIf="username.touched && !username.valid">
-      <div *ngIf="username.errors.required">Username is required</div>
-      <div *ngIf="username.errors.minlength">
+    <div *ngIf="form.get('username').pending">Checking...</div>
+    <div *ngIf="form.get('username').touched && !form.get('username').valid">
+      <div *ngIf="form.get('username').errors?.required">
+        Username is required
+      </div>
+      <div *ngIf="form.get('username').errors?.minlength">
         Username should be minimum
-        {{ username.errors.minlength.requiredLength }} characters
+        {{ form.get("username").errors.minlength.requiredLength }} characters
+      </div>
+      <div *ngIf="form.get('username').errors?.shouldBeUnique">
+        Username is already taken
       </div>
     </div>
     <ion-item>
@@ -31,16 +32,10 @@
       <ion-input
         class="form-control"
         type="email"
-        name="email"
-        #email="ngModel"
-        ngModel
-        email
-        required
-        minlength="5"
-        maxlength="50"
+        formControlName="email"
       ></ion-input>
     </ion-item>
-    <div *ngIf="email.touched && !email.valid">
+    <div *ngIf="form.get('email').touched && !form.get('email').valid">
       Enter a valid email address
     </div>
     <ion-item>
@@ -48,40 +43,23 @@
       <ion-input
         class="form-control"
         type="password"
-        name="password"
-        #password="ngModel"
-        ngModel
-        required
-        minlength="6"
-        maxlength="20"
+        formControlName="password"
       ></ion-input>
     </ion-item>
-    <div *ngIf="password.touched && !password.valid">
-      <div *ngIf="password.errors.required">Password is required</div>
-      <div *ngIf="password.errors.minlength">
+    <div *ngIf="form.get('password').touched && !form.get('password').valid">
+      <div *ngIf="form.get('password').errors.required">
+        Password is required
+      </div>
+      <div *ngIf="form.get('password').errors.minlength">
         password should be minimum
-        {{ password.errors.minlength.requiredLength }} characters
+        {{ form.get("password").errors.minlength.requiredLength }} characters
       </div>
     </div>
-    <ion-button type="submit" expand="block" [disabled]="!form.valid"
-      >Register</ion-button
-    >
+    <ion-button type="submit" expand="block">Register</ion-button>
     <ion-button expand="block" color="primary" (click)="goBack()"
       >Go back</ion-button
     >
   </form>
-  <!-- <ion-list>
-    <ion-item>
-      <ion-label position="floating">Username</ion-label>
-      <ion-input placeholder="Username"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label position="floating">Password</ion-label>
-      <ion-input placeholder="Password"></ion-input>
-    </ion-item>
-  </ion-list>
-  <ion-button expand="block" color="primary">Register</ion-button>
-  <ion-button expand="block" color="primary" (click)="goBack()"
-    >Go back</ion-button
-  > -->
 </ion-content>
+
+<!-- [disabled]="!form.valid" -->
