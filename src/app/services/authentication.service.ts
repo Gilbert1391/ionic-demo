@@ -5,7 +5,7 @@ import { HttpClient } from "@angular/common/http";
 import { BehaviorSubject } from "rxjs";
 
 const TOKEN_KEY = "auth-token";
-const apiEndPoint = "https://monkey.com.do/wpapi/wp-json";
+const apiEndPoint = "";
 
 @Injectable({
   providedIn: "root"
