@@ -10,6 +10,27 @@
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
 
+// buttons global styles
+
+.btn-gradient {
+  --background: linear-gradient(to right, #f78361, #f66e62, #f54b64);
+  --background-activated: linear-gradient(
+    to right,
+    rgba(247, 132, 97, 0.85),
+    rgba(246, 110, 98, 0.85),
+    rgba(245, 75, 100, 0.85)
+  );
+}
+
+.btn-light {
+  --background: #fff;
+  --color: #f54b64;
+  --background-activated: rgba(255, 255, 255, 0.85);
+  --color-activated: #f54b64;
+}
+
+// forms global styles
+
 .form-control.ng-touched.ng-invalid {
   border-bottom: 1px solid red;
 }

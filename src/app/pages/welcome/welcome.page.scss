@@ -1,0 +1,27 @@
+.welcome {
+  --background: url("../../../assets/img/full-background.jpg") no-repeat center;
+
+  &__container {
+    width: 90%;
+    height: 100%;
+    margin: 0 auto;
+  }
+
+  &__logo {
+    display: block;
+    height: 10rem;
+    margin: 0 auto;
+    margin-top: 11vh;
+    margin-bottom: 5vh;
+  }
+
+  &__text {
+    color: #fff;
+    text-align: center;
+    margin-bottom: 27vh;
+  }
+
+  &__btns-container {
+    width: 100%;
+  }
+}

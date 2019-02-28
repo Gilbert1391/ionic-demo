@@ -8,23 +8,27 @@ import { UsersService } from "../../services/users.service";
 export class UsernameValidators {
   constructor(private userService: UsersService) {}
 
+  // shouldBeUnique(control: AbstractControl): Promise<ValidationErrors | null> {
+  //   return new Promise((resolve, reject) => {
+  //     setTimeout(() => {
+  //       if (control.value === "admin") {
+  //         resolve({ shouldBeUnique: true });
+  //       } else {
+  //         resolve(null);
+  //       }
+  //     }, 2000);
+  //   });
+  // }
+
   shouldBeUnique(control: AbstractControl): Promise<ValidationErrors | null> {
     return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        if (control.value === "admin") {
+      this.userService.checkUsername().subscribe((res: any) => {
+        if (res.find(user => user.name === control.value)) {
           resolve({ shouldBeUnique: true });
         } else {
           resolve(null);
         }
-      }, 2000);
+      });
     });
   }
-
-  // shouldBeUnique(
-  //   control: AbstractControl
-  // ): Promise<ValidationErrors | null> {
-  //   return new Promise((resolve, reject) => {
-  //     this.userService.checkUsername
-  //   });
-  // }
 }

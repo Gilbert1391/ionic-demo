@@ -13,7 +13,7 @@ export class LoginPage implements OnInit {
     private navCtrl: NavController
   ) {}
 
-  errorMessage = this.authService.errorMessage;
+  errorMessage = this.authService.loginErrorMessage;
 
   onSubmit(form) {
     this.authService.login(form.value.username, form.value.password);

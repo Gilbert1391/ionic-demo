@@ -12,7 +12,7 @@ const apiEndPoint = "https://monkey.com.do/wpapi/wp-json";
 })
 export class AuthenticationService {
   authenticationState = new BehaviorSubject(false);
-  errorMessage = new BehaviorSubject("");
+  loginErrorMessage = new BehaviorSubject("");
 
   constructor(
     private storage: Storage,
@@ -58,7 +58,7 @@ export class AuthenticationService {
         ex => {
           loading.dismiss();
           console.log(ex);
-          this.errorMessage.next("Invalid username or password.");
+          this.loginErrorMessage.next("Invalid username or password.");
         }
       );
   }
