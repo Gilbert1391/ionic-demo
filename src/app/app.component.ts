@@ -25,15 +25,16 @@ export class AppComponent implements OnInit {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
-    });
-  }
-
-  ngOnInit() {
-    this.authService.authenticationState.subscribe(state => {
+      
+      this.authService.authenticationState.subscribe(state => {
       console.log("Auth state: " + state);
       if (state) {
         this.router.navigate(["home"]);
+      } else {
+        this.router.navigate(["login"])
       }
+    });
+      
     });
   }
 }
