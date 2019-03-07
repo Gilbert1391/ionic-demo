@@ -15,8 +15,8 @@ export class LoginPage implements OnInit {
 
   errorMessage = this.authService.loginErrorMessage;
 
-  onSubmit(form) {
-    this.authService.login(form.value.username, form.value.password);
+  onSubmit() {
+    this.authService.login();
   }
 
   goBack() {
