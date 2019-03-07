@@ -34,33 +34,11 @@ export class AuthenticationService {
     });
   }
 
-  async login(username, password) {
-    const loading = await this.loadingController.create({
-      duration: 5000,
-      message: "Please wait..."
-    });
-
-    loading.present();
-
-    return this.http
-      .post(apiEndPoint + "/jwt-auth/v1/token", {
-        username,
-        password
-      })
-      .subscribe(
-        res => {
-          console.log(res);
-          loading.dismiss();
-          this.storage
-            .set(TOKEN_KEY, res["token"])
+  login(username, password) {
+    return this.storage
+            .set(TOKEN_KEY, "user123")
             .then(() => this.authenticationState.next(true));
-        },
-        ex => {
-          loading.dismiss();
-          console.log(ex);
-          this.loginErrorMessage.next("Invalid username or password.");
-        }
-      );
+       
   }
 
   logout() {
