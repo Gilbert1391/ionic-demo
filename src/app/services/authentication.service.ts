@@ -35,10 +35,7 @@ export class AuthenticationService {
   }
 
   login(username, password) {
-    return this.storage
-            .set(TOKEN_KEY, "user123")
-            .then(() => this.authenticationState.next(true));
-       
+    return this.storage.set(TOKEN_KEY, "user123").then(() => this.authenticationState.next(true));   
   }
 
   logout() {
